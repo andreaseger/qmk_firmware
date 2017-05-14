@@ -28,3 +28,19 @@ If your keyboard layout is a mirror image of what you expected (i.e. you do not 
 *Unlike the TMK firmware, these commands should be run from the root of the repository, not the directory containing this readme.*
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## ANE board
+
+My board has a astar PCB and is `PCBDOWN=yes`.
+
+`make <keyboard_folder>:<keymap>:<target>`
+
+custom keymap in `ane` folder
+
+### Generate hex file
+
+```
+make PCBDOWN=yes atreus/astar:ane
+```
+
+then use QMK toolkit to flash
