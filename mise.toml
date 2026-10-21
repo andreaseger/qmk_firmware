@@ -1,0 +1,37 @@
+# Build environment for QMK: `mise install`, then e.g.
+#   mise exec -- qmk compile -kb drop/thekey/v1 -km ane
+[tools]
+python = "3.13"
+uv = "latest"
+"pipx:qmk" = "latest"
+
+# Prebuilt AVR/ARM/RISC-V GCC toolchains (same ones util/env-bootstrap.sh installs)
+[tools."github:qmk/qmk_toolchains"]
+version = "v15.2.0-1"
+strip_components = 1
+bin_path = "bin"
+
+[tools."github:qmk/qmk_toolchains".platforms]
+linux-x64 = { asset_pattern = "qmk_toolchains-*-host_linuxX64.tar.zst" }
+linux-arm64 = { asset_pattern = "qmk_toolchains-*-host_linuxARM64.tar.zst" }
+macos-x64 = { asset_pattern = "qmk_toolchains-*-host_macosX64.tar.zst" }
+macos-arm64 = { asset_pattern = "qmk_toolchains-*-host_macosARM64.tar.zst" }
+
+# Flashing utilities (dfu-programmer, dfu-util, avrdude, ...)
+[tools."github:qmk/qmk_flashutils"]
+version = "20260711"
+bin_path = "."
+
+[tools."github:qmk/qmk_flashutils".platforms]
+linux-x64 = { asset_pattern = "qmk_flashutils-*-linuxX64.tar.zst" }
+linux-arm64 = { asset_pattern = "qmk_flashutils-*-linuxARM64.tar.zst" }
+macos-x64 = { asset_pattern = "qmk_flashutils-*-macosUNIVERSAL.tar.zst" }
+macos-arm64 = { asset_pattern = "qmk_flashutils-*-macosUNIVERSAL.tar.zst" }
+
+[tasks.build]
+description = "Compile the Drop The Key keymap"
+run = "qmk compile -kb drop/thekey/v1 -km ane"
+
+[tasks.flash]
+description = "Compile and flash (put the keypad into the bootloader first)"
+run = "qmk flash -kb drop/thekey/v1 -km ane"
